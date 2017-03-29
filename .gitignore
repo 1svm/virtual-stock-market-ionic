@@ -4,7 +4,7 @@ platforms/
 plugins/
 resources/
 scss/
-.bowerrc
+www/lib/
 .editorconfig
 gulpfile.js
 ionic.config.json
