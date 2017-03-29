@@ -1,0 +1,44 @@
+<ion-view view-title="Watchlist">
+
+    <ion-nav-buttons side="right">
+        <button class="button button-clear button-icon ion-minus-circled" ng-click="toggleDelete()"></button>
+    </ion-nav-buttons>
+
+    <ion-content class="has-header">
+
+        <ion-refresher pulling-text="Fetching data..." pulling-icon="ion-arrow-up-c"
+                       on-refresh="doRefresh()"></ion-refresher>
+
+        <ion-list type="card" show-delete="shouldShowDelete" show-reorder="false" can-swipe="false">
+
+            <div class="row header" ng-if="!watchlist.length">
+                <div class="col text-center">
+                    <i class="icon icon-left ion-information-circled" style="font-size: x-large"></i>
+                    <span style="font-size: medium">You don't have any stocks in your watchlist</span>
+                </div>
+            </div>
+
+            <ion-item class="item-icon-right"
+                      ng-repeat="item in watchlist"
+                      ui-sref="main.stock({FullInstrument: item.FlIns})">
+                <h3 class="dark" ng-bind="item.Cmp"></h3>
+                <h4 class="positive">{{item.E2}}:{{item.Sym}}</h4>
+                <h4 class="royal">{{item.It}}, {{item.market}}</h4>
+                <div class="icon icon-right"
+                     ng-class="{ 'energized': item.Ch === 0, 'assertive': item.Ch < 0, 'balanced': item.Ch > 0 }">
+                    <div class="sm-small-font">{{item.Lp | toFixed:2}}
+                        <i ng-class="{ 'ion-arrow-swap': item.Ch === 0, 'ion-arrow-down-a': item.Ch < 0, 'ion-arrow-up-a': item.Ch > 0 }"></i>
+                        <span class="sm-small-font-font">{{item.Ch | toFixed:2}}</span>
+                        <span class="sm-x-small-font">({{item.Chp | toFixed:2}}%)</span>
+                    </div>
+                </div>
+                <ion-delete-button class="ion-trash-a"
+                                   ng-click="removeFromWatchlist(item.FlIns)"
+                                   ng-show="isRemovingFromWatchlist"></ion-delete-button>
+            </ion-item>
+
+        </ion-list>
+
+    </ion-content>
+
+</ion-view>

@@ -1,0 +1,55 @@
+<ion-view view-title="Virtual Trader">
+
+  <ion-content scroll="false" class="padding">
+
+    <form novalidate="novalidate"
+          autocomplete="off"
+          name="loginForm"
+          ng-submit="doLogin(loginForm)">
+
+      <div class="list">
+
+        <label class="item item-input item-icon-left"
+               ng-class="{'label-has-error': (loginForm.email.$dirty || loginForm.$submitted) && loginForm.email.$invalid}">
+          <i class="icon ion-email"
+             ng-class="{'icon-has-error': (loginForm.email.$dirty || loginForm.$submitted) && loginForm.email.$invalid}"></i>
+          <input type="text"
+                 class="indent"
+                 placeholder="Email"
+                 name="email"
+                 ng-model="formData.email"
+                 ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i"
+                 ng-required="true">
+        </label>
+        <div class="error-statement"
+             ng-show="(loginForm.email.$dirty || loginForm.$submitted) && loginForm.email.$invalid">please enter a valid email</div>
+
+        <label class="item item-input item-icon-left margin-top"
+               ng-class="{'label-has-error': (loginForm.password.$dirty || loginForm.$submitted) && loginForm.password.$invalid}">
+          <i class="icon ion-ios-unlocked"
+             ng-class="{'icon-has-error': (loginForm.password.$dirty || loginForm.$submitted) && loginForm.password.$invalid}"></i>
+          <input type="password"
+                 class="indent"
+                 placeholder="Password"
+                 name="password"
+                 ng-model="formData.password"
+                 ng-pattern="/^.{3,}$/"
+                 ng-required="true">
+        </label>
+        <div class="error-statement"
+             ng-show="(loginForm.password.$dirty || loginForm.$submitted) && loginForm.password.$invalid">atleast 3 letters are required</div>
+
+      </div>
+
+      <button class="button button-block button-positive" type="submit">Log In</button>
+      <a nav-direction="forward" class="button button-block button-positive" ui-sref="signup">Not a member yet? Sign Up</a>
+
+    </form>
+
+  </ion-content>
+
+  <div class="bar bar-stable bar-footer">
+    <button class="icon-right ion-help-circled button button-stable pull-right" ng-click="forgotPassword()">FORGOT PASSWORD</button>
+  </div>
+
+</ion-view>

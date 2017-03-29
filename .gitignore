@@ -1,0 +1,10 @@
+hooks/
+node_modules/
+platforms/
+plugins/
+resources/
+scss/
+.bowerrc
+.editorconfig
+gulpfile.js
+ionic.config.json

@@ -1,0 +1,46 @@
+<ion-view view-title="Home">
+
+  <ion-nav-buttons side="right">
+    <button class="button button-icon button-clear ion-ios-search-strong" ng-click="searchModal.show()"></button>
+  </ion-nav-buttons>
+
+  <ion-content>
+
+    <ion-list type="card">
+
+      <div class="row header" ng-if="portfolio.length">
+        <div class="col text-center">Name</div>
+        <div class="col text-center">Buy Rate</div>
+        <div class="col text-center">Quantity</div>
+        <div class="col text-center">Sell Rate</div>
+        <div class="col text-center">P/L</div>
+      </div>
+
+      <div class="row header" ng-if="!portfolio.length">
+        <div class="col text-center">
+          <i class="icon icon-left ion-information-circled" style="font-size: x-large"></i>
+          <span style="font-size: medium">You haven't made any transactions yet</span>
+        </div>
+      </div>
+
+      <ion-item ng-repeat="item in portfolio" ui-sref="main.stock({FullInstrument: item.symbol})" class="portfolio-item">
+        <div class="row row-no-padding">
+          <marquee scrollamount="2" class="col dark text-center">{{item.name}}</marquee>
+          <h3 class="col dark text-center">{{item.totalBuyRate | toFixed:2}}</h3>
+          <h3 class="col dark text-center">{{item.totalQuantity}}</h3>
+          <h3 class="col dark text-center">{{item.totalSellRate | toFixed:2}}</h3>
+          <!--<h3 class="col dark text-center"
+              ng-class="{'green':item.status==='P','icon-has-error':item.status==='L','icon-has-error':item.status==='N'}"><b>
+            {{(item.totalSellRate === 0) ? "-" : ((item.totalBuyRate - item.totalSellRate) === 0) ? "-" : item.quantity * (item.totalBuyRate - item.totalSellRate) | toFixed:2 }}</b></h3>-->
+          <h3 class="col dark text-center">
+            <b>{{(item.totalSellRate === 0) ? "" : ((item.totalSellRate - item.totalBuyRate) === 0) ? "" : (item.quantity - item.totalQuantity) *
+              (item.totalSellRate - item.totalBuyRate) | toFixed:2 }}</b>
+          </h3>
+        </div>
+      </ion-item>
+
+    </ion-list>
+
+  </ion-content>
+
+</ion-view>

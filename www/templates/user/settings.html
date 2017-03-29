@@ -1,0 +1,44 @@
+<ion-modal-view>
+
+  <ion-header-bar class="bar-stable"
+                  align-title="center"
+                  ng-controller="MainCtrl">
+    <h1 class="title">Settings</h1>
+    <button class="button button-positive" ng-click="settingsModal.hide()">
+      &nbsp;<span class="icon icon-left ion-close-round">&nbsp;</span>
+    </button>
+  </ion-header-bar>
+
+  <ion-content class="has-header" ng-controller="MainCtrl">
+
+    <!--<ion-list>-->
+
+    <!--<ion-item class="item-icon-right"
+              ng-repeat="item in searchedStocks track by $index"
+              ng-click="viewStock(item)">
+      <h3 class="dark"><b>{{item.OS01W}}</b></h3>
+      <h4 class="positive"><b>{{item.OS05J}}</b></h4>
+      <h4 class="royal"><b>{{item.OS001}}, {{item.LS01Z}}</b></h4>
+      <b class="icon icon-right icon-accessory less-stable">{{item.RT0EC}} &dash; {{item.AC040}}</b>
+    </ion-item>-->
+
+    <div class="list">
+
+      <div class="item item-divider">Search Filtering</div>
+
+      <label class="item item-input item-select">
+        <div class="input-label">Country</div>
+        <select ng-model="selected_ccode"
+                ng-options="c.ccode as c.cname for c in countries"
+                ng-change="selected_cname=(countries|filter:{ccode:selected_ccode})[0].cname">
+        </select>
+      </label>
+
+    </div>
+
+
+    <!--</ion-list>-->
+
+  </ion-content>
+
+</ion-modal-view>

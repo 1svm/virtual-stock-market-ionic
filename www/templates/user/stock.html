@@ -1,0 +1,142 @@
+<ion-view>
+
+  <ion-nav-title>
+    <div class="marquee" ng-if="stock.Cmp">{{stock.Cmp}}, <span class="sm-x-small-font">{{stock.Sym}}</span></div>
+  </ion-nav-title>
+  <ion-nav-buttons side="right">
+    <button class="button button-clear button-icon"
+            ng-click="addToWatchlist(stock.FlIns)"
+            ng-class="isBeingWatched ? 'button-energized ion-checkmark-circled' : 'ion-plus-circled'"
+            ng-bind-html="isBeingWatched ? 'Watching' : 'Watch'"
+            ng-disabled="isAdding">
+    </button>
+  </ion-nav-buttons>
+
+  <div class="bar bar-subheader has-header" ng-if="stock">
+    <div class="button button-clear">
+      <span class="sm-font-2">{{stock.It}}, {{stock.market}}</span>
+    </div>
+    <div class="title sm-big-font"
+         ng-class="{
+         'energized': stock.Ch === 0,
+         'assertive': stock.Ch < 0,
+         'balanced': stock.Ch > 0
+         }">&nbsp;&nbsp;&nbsp;&nbsp;
+      {{stock.Lp | toFixed:2}}
+      <i class="icon"
+         ng-class="{
+         'ion-arrow-swap': stock.Ch === 0,
+         'ion-arrow-down-a': stock.Ch < 0,
+         'ion-arrow-up-a': stock.Ch > 0}"></i>
+      <span class="sm-normal-font">{{stock.Ch | toFixed:2}}</span>
+      <span class="sm-small-font">({{stock.Chp | toFixed:2}}%)</span>
+    </div>
+    <div class="button button-clear">
+      <span class="sm-font-2" ng-bind="stock.E2"></span>
+    </div>
+  </div>
+
+  <ion-content class="has-subheader">
+    <div class="card">
+      <div class="item item-divider">
+        <b class="float-left">Market Data</b>
+        <p class="float-right">Last Traded: {{stock.Ld | toDate}}, {{stock.Lt | toTime}}</p>
+      </div>
+      <div class="item item-text-wrap">
+        <div class="row">
+          <div class="col sm-x-small-font">Open</div>
+          <div class="col sm-small-font-2" ng-bind="stock.Op | toFixed:2"></div>
+          <div class="col col-33 text-center sm-x-small-font">Prev. Close</div>
+          <div class="col sm-small-font-2" ng-bind="stock.Pp | toFixed:2"></div>
+        </div>
+        <div class="row">
+          <div class="col sm-x-small-font">Day High</div>
+          <div class="col sm-small-font-2" ng-bind="stock.Dh | toFixed:2"></div>
+          <div class="col col-33 text-center sm-x-small-font">Day Low</div>
+          <div class="col sm-small-font-2" ng-bind="stock.Dl | toFixed:2"></div>
+        </div>
+        <div class="row">
+          <div class="col sm-x-small-font">Year High</div>
+          <div class="col sm-small-font-2" ng-bind="stock.Yh | toFixed:2"></div>
+          <div class="col col-33 text-center sm-x-small-font">Year Low</div>
+          <div class="col sm-small-font-2" ng-bind="stock.Yl | toFixed:2"></div>
+        </div>
+        <div class="row">
+          <div class="col sm-x-small-font">Capital</div>
+          <div class="col sm-small-font-2" ng-bind="stock.Mc | toMoney"></div>
+          <div class="col col-33 text-center sm-x-small-font">Volume</div>
+          <div class="col sm-small-font-2" ng-bind="stock.V | toMoney"></div>
+        </div>
+        <div class="row">
+          <div class="col sm-x-small-font">Bid Value</div>
+          <div class="col sm-small-font-2" ng-bind="stock.Bid"></div>
+          <div class="col col-33 text-center sm-x-small-font">Bid Size</div>
+          <div class="col sm-small-font-2" ng-bind="stock.BidSize"></div>
+        </div>
+        <div class="row">
+          <div class="col sm-x-small-font">Ask Value</div>
+          <div class="col sm-small-font-2" ng-bind="stock.Ask"></div>
+          <div class="col col-33 text-center sm-x-small-font">Ask Size</div>
+          <div class="col sm-small-font-2" ng-bind="stock.AskSize"></div>
+        </div>
+        <div class="row">
+          <div class="col sm-x-small-font">Div. Rate</div>
+          <div class="col sm-small-font-2" ng-bind="stock.DvRt | toFixed:2"></div>
+          <div class="col col-33 text-center sm-x-small-font">Div. Yield</div>
+          <div class="col sm-small-font-2">{{stock.Dy | toFixed:2}}<span ng-if="stock.Dy">%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="list card" ng-controller="StockCtrl">
+      <div class="item item-divider">
+        <b class="float-left">Order Form</b>
+        <p class="float-right">Available Funds: {{user.wallet | toFixed:2}}</p>
+      </div>
+      <div class="row">
+        <div class="col sm-x-small-font text-right">Buying Cap.</div>
+        <div class="col sm-small-font-2 text-center">{{capacity}}</div>
+        <div class="col col-33 sm-x-small-font text-right">Amount</div>
+        <div class="col sm-small-font-2 text-center">{{debit}}</div>
+      </div>
+      <label class="item item-input">
+        <span class="input-label">Quantity</span>
+        <input type="number"
+               ng-model="quantity"
+               ng-keyup="calcDebitAmt()"
+               placeholder="Enter stock quantity here..."
+               style="border-bottom: 1px solid #dadada">
+      </label>
+      <div class="button-bar">
+        <a class="button button-positive" ng-click="buy()">BUY</a>
+        <a class="button button-positive" ng-click="sell()" style="margin-left:3px">SELL</a>
+      </div>
+    </div>
+
+    <div class="list card">
+      <div class="item item-divider">
+        <b class="float-left">Related Stocks</b>
+      </div>
+
+      <div class="item item-icon-right"
+           ng-repeat="item in stock.RelStks track by $index"
+           ng-click="viewSt(item)">
+        <ion-spinner icon="ios" class="spinner-dark spinner-align" ng-hide="item"></ion-spinner>
+        <h3 class="dark" ng-bind="item.Cmp"></h3>
+        <h4 class="positive">{{item.E2}}:{{item.Sym}}</h4>
+        <h4 class="royal">{{item.It}}, {{item.market}}</h4>
+        <div class="icon icon-right"
+             ng-class="{ 'energized': item.Ch === 0, 'assertive': item.Ch < 0, 'balanced': item.Ch > 0 }">
+          <div class="sm-small-font">{{item.Lp | toFixed:2}}
+            <i
+              ng-class="{ 'ion-arrow-swap': item.Ch === 0, 'ion-arrow-down-a': item.Ch < 0, 'ion-arrow-up-a': item.Ch > 0 }"></i>
+            <span class="sm-small-font-font">{{item.Ch | toFixed:2}}</span>
+            <span class="sm-x-small-font">({{item.Chp | toFixed:2}}%)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+
+</ion-view>

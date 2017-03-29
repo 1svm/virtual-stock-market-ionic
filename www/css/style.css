@@ -1,0 +1,152 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide {
+  display: none !important;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: rgba(0, 0, 0, .7);
+}
+.indent {
+  padding-left: 40px !important;
+  padding-right: 50px !important;
+}
+.popup-container .popup {
+  width: 90% !important;
+  max-height: 100% !important;
+}
+.label-has-error {
+  border-bottom: 3px solid #ef473a;
+}
+.icon-has-error {
+  color: #ef473a;
+}
+.margin {
+  margin: 10px !important;
+}
+.margin-top {
+  margin-top: 10px !important;
+}
+.margin-bottom {
+  margin-bottom: 10px !important;
+}
+.spinner-align svg {
+  position: relative;
+  right: 50%;
+}
+.error-statement {
+  color: #ef473a;
+  font-size: x-small;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.less-stable {
+  color: #999999 !important;
+  font-weight: bold;
+}
+.sm-search {
+  font-weight: 500 !important;
+  width: 80% !important;
+  white-space: normal !important;
+}
+.flex-parent {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-child {
+  flex-grow: 1;
+  text-align: center;
+}
+.item-right-align {
+  float: right;
+  opacity: .8;
+}
+.float-left {
+  float: left !important;
+}
+.float-right {
+  float: right !important;
+}
+.sm-font {
+  font-weight: bold;
+  font-size: small;
+}
+.sm-font-2 {
+  font-size: 3.5vw !important;
+  font-weight: bold !important;
+  color: #8f8f8f !important;
+}
+.sm-big-font {
+  font-weight: bold !important;
+  font-size: 6vw !important;
+}
+.sm-x-small-font {
+  font-size: small !important;
+}
+.sm-normal-font {
+  font-weight: bold !important;
+  font-size: 5vw !important;
+}
+.sm-small-font {
+  font-weight: bold !important;
+  font-size: 4vw !important;
+}
+.sm-small-font-2 {
+  font-size: medium !important;
+  font-weight: bold;
+  opacity: .9;
+}
+.border-none {
+  border: none !important;
+}
+.border-top-none {
+  border-top: none !important;
+}
+.fixed-middle {
+  position: fixed;
+  top: 40vh;
+  left: 46vw;
+}
+.fixed-middle > svg {
+  width: 42px !important;
+  height: 42px !important;
+}
+.marquee {
+  animation: marquee 15s linear infinite;
+}
+.bold-light {
+  opacity: .7;
+}
+.header {
+  background-color: lightgray;
+}
+.green {
+  color: #33cd5f;
+}
+.no-padding {
+  padding: 0 !important;
+}
+.portfolio-item a {
+  padding-left: 6px !important;
+  padding-right: 0 !important;
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(60vw);
+  }
+  100% {
+    transform: translateX(-70vw);
+  }
+}
+.slide-in-right {
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0); }
+.slide-in-right.ng-enter, .slide-in-right > .ng-enter {
+  -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
+  transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms; }
+.slide-in-right.ng-enter-active, .slide-in-right > .ng-enter-active {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
+.slide-in-right.ng-leave, .slide-in-right > .ng-leave {
+  -webkit-transition: all ease-in-out 250ms;
+  transition: all ease-in-out 250ms; }

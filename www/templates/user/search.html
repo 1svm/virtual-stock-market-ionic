@@ -1,0 +1,52 @@
+<ion-modal-view>
+
+  <ion-header-bar class="bar-stable"
+                  align-title="center"
+                  ng-controller="MainCtrl">
+    <h1 class="title">Search a new stock</h1>
+    <button class="button button-positive" ng-click="searchModal.hide()">
+      &nbsp;<span class="icon icon-left ion-close-round">&nbsp;</span>
+    </button>
+  </ion-header-bar>
+
+  <ion-content class="has-header" ng-controller="MainCtrl">
+    <label class="item item-input item-icon-left">
+      <i class="icon ion-search"></i>
+      <input type="text"
+             placeholder="Type a stock name here"
+             class="indent"
+             ng-model="searchQuery"
+             ng-change="searchStock()">
+    </label>
+
+    <ion-list>
+
+      <div class="item item-divider"
+           ng-if="searchedStocks.length"><b class="bold-light">Results</b>
+        <span class="item-right-align">{{searchedStocks.length}} Found</span>
+      </div>
+
+      <ion-item class="item-icon-right"
+                ng-repeat="item in searchedStocks track by $index"
+                ng-click="viewStock(item)">
+        <h3 class="dark"><b>{{item.OS01W}}</b></h3>
+        <h4 class="positive"><b>{{item.OS05J}}</b></h4>
+        <h4 class="royal"><b>{{item.OS001}}, {{item.LS01Z}}</b></h4>
+        <b class="icon icon-right icon-accessory less-stable">{{item.RT0EC}} &dash; {{item.AC040}}</b>
+      </ion-item>
+
+      <div class="list" ng-if="(!searchedStocks.length) && (searchHistory.length)">
+        <div class="item item-divider"><b class="bold-light">Recent History</b></div>
+        <div class="flex-parent">
+          <p class="item flex-child"
+             ng-repeat="history in searchHistory"
+             ng-click="viewStock(history)">{{history.OS01W}}<br>
+            <span class="royal sm-font">{{history.OS001}}, {{history.LS01Z}}</span>
+          </p>
+        </div>
+      </div>
+
+    </ion-list>
+  </ion-content>
+
+</ion-modal-view>
