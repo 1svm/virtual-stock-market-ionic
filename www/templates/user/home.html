@@ -25,7 +25,9 @@
 
       <ion-item ng-repeat="item in portfolio" ui-sref="main.stock({FullInstrument: item.symbol})" class="portfolio-item">
         <div class="row row-no-padding">
-          <marquee scrollamount="2" class="col dark text-center">{{item.name}}</marquee>
+          <h3 class="col dark text-center" angular-marquee scroll="scroll">{{item.name}}&nbsp;&nbsp;</h3>
+          <!--<h3 angular-marquee scroll="true" duration="10000000" class="col dark text-center"></h3>-->
+          <!--<marquee scrollamount="2" class="col dark text-center">{{item.name}}</marquee>-->
           <h3 class="col dark text-center">{{item.totalBuyRate | toFixed:2}}</h3>
           <h3 class="col dark text-center">{{item.totalQuantity}}</h3>
           <h3 class="col dark text-center">{{item.totalSellRate | toFixed:2}}</h3>

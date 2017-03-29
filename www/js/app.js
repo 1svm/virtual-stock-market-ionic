@@ -168,6 +168,6 @@
 
     }];
 
-  angular.module("app", ["ionic", "ngAnimate", "angular-jwt", "ionic-native-transitions"]).config(config).run(run);
+  angular.module("app", ["ionic", "ngAnimate", "angular-jwt", "ionic-native-transitions", "angular-marquee"]).config(config).run(run);
 
 }());
