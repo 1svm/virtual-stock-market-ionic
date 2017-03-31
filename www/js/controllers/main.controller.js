@@ -43,7 +43,7 @@
         $scope.itemsInWatchlist = $rootScope.user.watchlist.length;
         $scope.searchHistory = StockService.getHistory();
         $scope.countries = CountryISOService.countries;
-        $scope.selected_ccode = $window.localStorage.getItem('countryCode');
+        $scope.selected_ccode = $window.localStorage.getItem('countryCode') || 'IN';
       });
 
       $scope.searchStock = function() {

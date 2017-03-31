@@ -10,16 +10,17 @@
     "$ionicPopup",
     "StockService",
     "$log",
-    function($scope, $state, $stateParams, $ionicLoading, $rootScope, $ionicPopup, StockService, $log) {
+    "$interval",
+    "$timeout",
+    function($scope, $state, $stateParams, $ionicLoading, $rootScope, $ionicPopup, StockService, $log, $interval, $timeout) {
+
+      var intervalFlag = true;
+
       $scope.calcCapacity = function() {
         $scope.capacity = Math.floor($scope.user.wallet / $scope.stock.Lp);
       };
 
       $scope.calcDebitAmt = function() {
-        /*if($scope.quantity > $scope.capacity) {
-         $scope.quantity = $scope.capacity;
-         return;
-         }*/
         $scope.debit = ($scope.quantity * $scope.stock.Lp).toFixed(2);
       };
 
@@ -92,15 +93,28 @@
         $scope.isAddingToWatchlist = false;
         $scope.user = $rootScope.user;
       });
+      
+      $scope.$on('$ionicView.leave', function() {
+        intervalFlag = false;
+      });
 
-      $scope.$on("$ionicView.enter", function(scopes, states) {
-        var instrument = $stateParams.FullInstrument;
+      $scope.refetchData = function(instrument) {
         StockService.view(instrument).then(function(stock) {
           $scope.stock = stock;
         }).finally(function() {
           $scope.calcCapacity();
           $scope.isStockLoading = false;
+          if(intervalFlag) {
+            $timeout(function() {
+              $scope.refetchData(instrument);
+            }, 5000);
+          }
         });
+      };
+
+      $scope.$on("$ionicView.enter", function(scopes, states) {
+        var instrument = $stateParams.FullInstrument;
+        $scope.refetchData(instrument);
       });
 
       $scope.viewSt = function(stock) {
