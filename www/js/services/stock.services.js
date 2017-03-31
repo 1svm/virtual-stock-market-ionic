@@ -67,13 +67,14 @@
             current.RelStks = response.data;
           });
         },
-        view: function(symbol) {
-          var deferred = $q.defer(),
-            url = API.GET_STOCK_DATA + $window.encodeURIComponent(symbol);
+        view: function(symbol, relatedStocksFlag) {
+          var deferred = $q.defer(), url = API.GET_STOCK_DATA + $window.encodeURIComponent(symbol);
           $http.get(url, {timeout: 30000}).then(function(response) {
             current = response.data[0];
             deferred.resolve(current);
-            self.relatedStocks(current.RelStks);
+            if(relatedStocksFlag) {
+              self.relatedStocks(current.RelStks);
+            }
           }).catch(function(err) {
             deferred.reject(err);
           });

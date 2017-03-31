@@ -93,20 +93,20 @@
         $scope.isAddingToWatchlist = false;
         $scope.user = $rootScope.user;
       });
-      
+
       $scope.$on('$ionicView.leave', function() {
         intervalFlag = false;
       });
 
-      $scope.refetchData = function(instrument) {
-        StockService.view(instrument).then(function(stock) {
+      $scope.refetchData = function(instrument, relatedStocksFlag) {
+        StockService.view(instrument, relatedStocksFlag).then(function(stock) {
           $scope.stock = stock;
         }).finally(function() {
           $scope.calcCapacity();
           $scope.isStockLoading = false;
           if(intervalFlag) {
             $timeout(function() {
-              $scope.refetchData(instrument);
+              $scope.refetchData(instrument, false);
             }, 5000);
           }
         });
@@ -114,7 +114,7 @@
 
       $scope.$on("$ionicView.enter", function(scopes, states) {
         var instrument = $stateParams.FullInstrument;
-        $scope.refetchData(instrument);
+        $scope.refetchData(instrument, true);
       });
 
       $scope.viewSt = function(stock) {
