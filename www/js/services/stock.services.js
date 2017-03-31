@@ -14,6 +14,7 @@
 
       // Private Members
       var current = null,
+        RelStks = null,
         searchHistory = [],
         searchedStocks = [];
 
@@ -64,6 +65,7 @@
           });
           var url = API.GET_STOCK_DATA + $window.encodeURIComponent(query);
           $http.get(url, {timeout: 30000}).then(function(response) {
+            RelStks = response.data;
             current.RelStks = response.data;
           });
         },
@@ -74,6 +76,8 @@
             deferred.resolve(current);
             if(relatedStocksFlag) {
               self.relatedStocks(current.RelStks);
+            } else {
+              current.RelStks = RelStks;
             }
           }).catch(function(err) {
             deferred.reject(err);
